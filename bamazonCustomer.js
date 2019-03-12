@@ -66,30 +66,24 @@ function buyWhat(){
     ])
     .then(function(answer){
         console.log(answer.choice + '$$' + answer.number)
-        connection.query('select item_id from products where ? and ?',[
+        connection.query('select item_id from products where ?',[
             {
                 item_id : answer.choice
-            },
-            {
-                stock_quantity : answer.number
             }], function(resp){
-                  
-                    console.log(answer.choice)
-    
-                    //working now.
-                    connection.query('select stock_quantity from products', 
-                    // [{
-                    //     stock_quantity: ansnwer.number
-                    // }],
+                  //working now.
+                    connection.query('select stock_quantity from products where ?', 
+                    [{
+                        item_id : answer.choice
+                    }],
                     function(err, response){
                          if(answer.number > response[0].stock_quantity) {
-                        console.log(response[0].stock_quantity + '%%%')
-                        console.log("Sorry, insufficient stock");
-                        // buyWhat();
-                        } else{
-                        console.log('yay!')
-                        }
-                    })   
+                            console.log(response[0].stock_quantity + '%%%')
+                            console.log("Sorry, insufficient stock");
+                            buyWhat();
+                            } else{
+                            console.log('yay!')
+                            }
+                        })   
          }) 
     })
     
