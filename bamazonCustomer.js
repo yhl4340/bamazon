@@ -80,7 +80,7 @@ function buyWhat() {
             function(err, response) {
             //   console.log(response);
               if (answer.number > response[0].stock_quantity) {
-                // console.log(response[0].stock_quantity + '%%%'+ response[0].product_name)
+                console.log(response[0].stock_quantity + '%%%'+ response[0].product_name)
                 console.log("Sorry, insufficient stock. Please order less");
                 buyWhat();
               } else {
@@ -99,6 +99,7 @@ function buyWhat() {
                       }
                     ],
                     function(err, reply) {
+                       
                       console.log(
                         "============================ \n Order has been placed.\n **************************\n Here is a recap: \n Name of product: " +
                           response[0].product_name +
@@ -107,7 +108,11 @@ function buyWhat() {
                           "\n Total is : " +
                           total +
                           "\n *************************** \n ============================="
-                      );
+                      ); 
+                      console.log(
+                          '\n\n' +
+                          newQty + ' Remaining quantity for ' +
+                          response[0].product_name + ': ' + answer.number)
                     }
                   );
                 }
