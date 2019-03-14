@@ -28,11 +28,14 @@ function menuOpt (){
             name: 'menu',
             type:'list',
             message: 'what would you like to view?',
-            choices: [
+            choices: 
+            [
                 'View products for sale',
                 'View low inventory',
                 'Add to inventory',
-                'Add to product'
+                'Add to product',
+                'Exit'
+
             ]
         }).
         then(function(answer){
@@ -44,33 +47,56 @@ function menuOpt (){
                     lowInventory();
                     break;
                 case 'Add to inventory':
-                    addInventory();
+                    viewProducts(addInventory);
                     break;
                 case 'Add to product':
                     addProduct();
                     break;
+                case 'Exit':
+                    connection.end();
                 default:
+                    console.log('Thank you. You have been logged out')
                     break;
            }
         })
 };
 
-function viewProducts (){
+function viewProducts (cb){
+    console.log("Here is the table of products we have on hand currently \n***************")
     connection.query('select * from products', function(err,data){
         if(err) throw err;
+        console.log('\n');
         console.table(data)
+        if (typeof cb !== 'undefined') {
+            cb();
+        };
     })
+    
 };
 
 function lowInventory(){
     connection.query('select * from products where stock_quantity < 50 ', function(err,dataRes){
+        console.log('\n\n');
         console.table(dataRes);
+    })
+    inquirer.prompt([
+        {
+            name: 'action',
+            type: 'confirm',
+            message: 'Would you like to add to the inventory?',
+            default: true
+        }
+    ]).
+    then(function(err,promptAnswer){
+        if(true){
+            addInventory();
+        } 
     })
 };
 
 function addInventory(){
-    viewProducts();
-   inquirer.prompt(
+  
+   inquirer.prompt([
        {
            name:'item',
            type: 'input',
@@ -80,27 +106,36 @@ function addInventory(){
            name: 'num',
            type:'input',
            message: 'How many do you want to add?'
-       }).
-       then(function(ans){
-           console.log(ans)
-           connection.query('select * from products where ?',
-           [
-               {
-               item_id: ans.item,
-               stock_quantity: ans.num
-               }
-           ] ),
-           function(response){
-               console.log(response)
-               connection.query('update products where ?', 
-               [
-                {
-                    item_id: ans.item,
-                    stock_quantity: ans.num
-                }
-               ])
-           }
-
-       })
-   
+       }
+    ]).
+    then(function(ans){
+        connection.query('select * from products where ?',
+        [
+            {
+            item_id: ans.item
+            }
+        ],
+        function(err,response){
+            if(err) throw err;
+            console.log('err:', err, 'res:',response[0].product_name,'!!!')
+            var newQty = response[0].stock_quantity + parseInt(ans.num);
+            
+            console.log(newQty + 'newQty')
+            connection.query('update products set ? where ?', 
+            [
+            {
+                stock_quantity:newQty
+                
+            },
+            {
+                item_id: ans.item
+                
+            }
+            ],
+            function(err,res){
+               
+                viewProducts(menuOpt);
+            })
+        })
+    })
 }
