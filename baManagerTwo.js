@@ -82,10 +82,12 @@ function lowInventory(){
         }
     ]).
     then(function(promptAnswer){
-        console.log('res:', promptAnswer)
+        // console.log('res:', promptAnswer)
         if(promptAnswer.action == true){
             addInventory();
         } else {
+            console.log('------------------------------------------------')
+            console.log('New inventory was updated. Now you are in the main page')
             menuOpt();
         }
     })
