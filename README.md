@@ -16,4 +16,6 @@
      they will be prompted again to buy item in a different quantity
 
 -[x] display grand total after purchase is finalized.
--[] attempted to work on the manager.js. not yet done.
+-[x] attempted to work on the manager.js.
+-[x] link to video for the Bamazon Manager option https://screencast-o-matic.com/watch/cqeoea0B61
+-[x] screen shots are under the image file.
