@@ -1,5 +1,4 @@
 # Bamazon
-##Goal
 * Using Mysql and node.js, create a mock online retailer that will do the following:
     1 display products on page load
     2 prompt users with 2 messages:
@@ -9,7 +8,7 @@
     4 if enough quantity, proceed to process the purchase
     5 alert user the total.
 
-### Attempt
+##Goal
 -[x] display product table on page load
 -[x] set up inquirer to prompt users to make choice
 -[x] alert user whether the quantity they have chosen will be met. if yes, order will be processed. if not, \n
