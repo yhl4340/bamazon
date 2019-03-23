@@ -8,13 +8,11 @@
     4 if enough quantity, proceed to process the purchase
     5 alert user the total.
 
-##Goal
--[x] display product table on page load
--[x] set up inquirer to prompt users to make choice
--[x] alert user whether the quantity they have chosen will be met. if yes, order will be processed. if not, \n
-     they will be prompted again to buy item in a different quantity
-
--[x] display grand total after purchase is finalized.
--[x] attempted to work on the manager.js.
--[x] link to video for the Bamazon Manager option https://screencast-o-matic.com/watch/cqeoea0B61
--[x] screen shots are under the image file.
+## Goal
+- [x] display product table on page load
+- [x] set up inquirer to prompt users to make choice
+- [x] alert user whether the quantity they have chosen will be met. if yes, order will be processed. if not,        they will be prompted again to buy item in a different quantity
+- [x] display grand total after purchase is finalized.
+- [x] attempted to work on the manager.js.
+- [x] link to video for the Bamazon Manager option https://screencast-o-matic.com/watch/cqeoea0B61
+- [x] screen shots are under the image file.
